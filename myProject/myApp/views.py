@@ -1,27 +1,42 @@
 from django.shortcuts import render
-from .piechart import load_and_process_data, plot_1_hour
+from .piechart import load_and_process_data, plot_1_hour, plot_5_hours, plot_24_hours
 import os
+from datetime import timedelta  # Import timedelta
 from myApp.models import Signup
 from myApp.models import Device
 
-# Create your views here.
+# Create your views here
 
 def home(request):
-    # Provide the path to your CSV file (adjust the path as necessary)
     file_path = os.path.join(os.getcwd(), 'data', 'energy_data.csv')
     
     # Load and process the data
     data = load_and_process_data(file_path)
     
-    # Generate the graph for the first available timestamp
-    if not data.empty:
-        time = data['Time'].iloc[0]
-        graph_html = plot_1_hour(data, time)
-    else:
-        graph_html = "<p>No data available to generate the graph.</p>"
+    # Check if the data is available
+    if data.empty:
+        return render(request, 'myApp/home.html', {'graph_html_1': "<p>No data available.</p>", 'graph_html_2': "", 'graph_html_3': ""})
     
-    # Pass the graph HTML to the template
-    return render(request, 'myApp/home.html', {'graph_html': graph_html})
+    # Generate the 1-hour graph for the first available timestamp
+    time = data['Time'].iloc[0]
+    graph_html_1 = plot_1_hour(data, time)
+    
+    # Generate the 5-hour graph for a time range
+    start_time = time
+    end_time = start_time + timedelta(hours=5)
+    graph_html_2 = plot_5_hours(data, start_time, end_time)
+    
+    # Generate the 24-hour graph for a time range
+    start_time_24 = data['Time'].min()
+    end_time_24 = start_time_24 + timedelta(hours=24)
+    graph_html_3 = plot_24_hours(data, start_time_24, end_time_24)
+    
+    # Pass the graphs to the template
+    return render(request, 'myApp/home.html', {
+        'graph_html_1': graph_html_1 or "<p>Unable to generate 1-hour graph.</p>",
+        'graph_html_2': graph_html_2 or "<p>Unable to generate 5-hour graph.</p>",
+        'graph_html_3': graph_html_3 or "<p>Unable to generate 24-hour graph.</p>"
+    })
 
 
 def insights(request):

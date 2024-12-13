@@ -54,21 +54,29 @@
       </ul>
     </div>
 
-    <div class="col-md-6">
-      <h3 class="text-secondary">Usage Trends</h3>
-      <div class="card shadow-sm border-0">
-        <div class="card-body">
-          <img src="https://u.osu.edu/sp19dreesedatasystems/files/2019/02/AEV-PowerTimeGraph-1yvdy4g.png" alt="Energy Usage Graph" class="img-fluid">
-        </div>
-      </div>
-    </div>
+    
   </div>
 </div>
 <div class="container">
-    <h2>Welcome to Energy Monitoring</h2>
-    <div>
-        <!-- Render the graph -->
-        {{ graph_html|safe }}
-    </div>
+  <h1 class="text-center">Electricity Consumption Graphs</h1>
+  
+  <!-- Graph 1 -->
+  <div>
+    <h2>Consumption at Specific Time</h2>
+    {{ graph_html_1|safe }}
+  </div>
+  
+  <!-- Graph 2 -->
+  <div>
+    <h2>Consumption Over 5 Hours</h2>
+    {{ graph_html_2|safe }}
+  </div>
+  
+  <!-- Graph 3 -->
+  <div>
+    <h2>24-Hour Total Appliance Consumption</h2>
+    {{ graph_html_3|safe }}
+  </div>
 </div>
+
 {% endblock %}
