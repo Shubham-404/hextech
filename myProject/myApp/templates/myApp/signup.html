@@ -14,7 +14,8 @@
                         </div>
                         <div class="col-md-6 col-lg-7 d-flex align-items-center">
                             <div class="card-body p-4 p-lg-5 text-black">
-                                <form>
+                                <form action="/join/" method="post" >
+                                    {% csrf_token %}
                                     <div class="d-flex align-items-center mb-3 pb-1">
                                         <i class="fas fa-cubes fa-2x me-3" style="color: #000;"></i>
                                         <span class="h3 fw-bold mb-0" style="color: #000;">Join HexTech</span>
@@ -23,27 +24,27 @@
                                     <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; color: #000">Create a new account</h5>
 
                                     <div class="form-outline mb-4">
-                                        <input type="text" id="username" class="form-control form-control-lg" />
+                                        <input type="text" id="username" name="username" class="form-control form-control-lg" />
                                         <label class="form-label" for="username" style="color: #000">Username</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="email" id="email" class="form-control form-control-lg" />
+                                        <input type="email" id="email" name="email" class="form-control form-control-lg" />
                                         <label class="form-label" for="email" style="color: #000">Email address</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="password" id="password" class="form-control form-control-lg" />
+                                        <input type="password" id="password" name="password" class="form-control form-control-lg" />
                                         <label class="form-label" for="password" style="color: #000">Password</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
                                         <input type="password" id="password_confirm" class="form-control form-control-lg" />
-                                        <label class="form-label" for="password_confirm" style="color: #000">Confirm Password</label>
+                                        <label class="form-label" for="password_confirm" name="password_confirm" style="color: #000">Confirm Password</label>
                                     </div>
 
                                     <div class="pt-1 mb-4">
-                                        <button class="btn btn-dark btn-lg btn-block" type="button">Sign Up</button>
+                                        <button class="btn btn-dark btn-lg btn-block" type="submit">Sign Up</button>
                                     </div>
 
                                     <p class="mb-5 pb-lg-2" style="color: #393f81;">Already have an account? <a href="#!" style="color: #393f81;">Login here</a></p>
