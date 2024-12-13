@@ -17,3 +17,6 @@ def devices(request):
 
 def join(request):
     return render(request, "myApp/join.html")
+
+def signup(request):
+    return render(request, "myApp/signup.html")

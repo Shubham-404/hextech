@@ -23,5 +23,6 @@ urlpatterns = [
     path("insights/", include("myApp.urls")),
     path("devices/", include("myApp.urls")),
     path("join/", include("myApp.urls")),
+    path("signup/", include("myApp.urls")),
 
 ]
