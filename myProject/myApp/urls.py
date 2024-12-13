@@ -6,5 +6,5 @@ urlpatterns = [
     path("insights/", views.insights, name = "insights"),
     path("devices/", views.devices, name = "devices"),
     path("join/", views.join, name = "join"),
-    
+
 ]

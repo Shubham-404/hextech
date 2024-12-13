@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 # Create your views here.
-
 logged = True;
 def home(request) : 
     if(logged):
@@ -18,4 +17,3 @@ def devices(request):
 
 def join(request):
     return render(request, "myApp/join.html")
-
