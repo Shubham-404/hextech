@@ -1,16 +1,28 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .piechart import load_and_process_data, plot_1_hour
+import os
 from myApp.models import Signup
 from myApp.models import Device
 
 # Create your views here.
-logged = True;
-def home(request) : 
-    if(logged):
-        return render(request, "myApp/home.html")
+
+def home(request):
+    # Provide the path to your CSV file (adjust the path as necessary)
+    file_path = os.path.join(os.getcwd(), 'data', 'energy_data.csv')
+    
+    # Load and process the data
+    data = load_and_process_data(file_path)
+    
+    # Generate the graph for the first available timestamp
+    if not data.empty:
+        time = data['Time'].iloc[0]
+        graph_html = plot_1_hour(data, time)
     else:
-        return render(request, "myApp/join.html")
-        
+        graph_html = "<p>No data available to generate the graph.</p>"
+    
+    # Pass the graph HTML to the template
+    return render(request, 'myApp/home.html', {'graph_html': graph_html})
+
 
 def insights(request):
     return render(request, "myApp/insights.html")
