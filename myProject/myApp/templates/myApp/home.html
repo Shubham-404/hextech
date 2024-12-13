@@ -1,0 +1,67 @@
+{% extends 'myApp/base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="container" style='padding-bottom: 40px;'>
+  <!-- Quick Insights Section -->
+  <div class="row my-4">
+    <div class="col-12 text-center">
+      <h1 class="display-4 text-primary">Welcome to Energy Tracker</h1>
+      <p class="lead">Monitor your energy consumption and make smarter choices.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Total Energy Usage Card -->
+    <div class="col-md-6">
+      <div class="card shadow-sm border-0">
+        <div class="card-body text-center">
+          <h5 class="card-title text-success">Total Energy Usage</h5>
+          <p class="card-text display-6">5 kWh Today</p>
+          <small class="text-muted">Updated 5 mins ago</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Devices Card -->
+    <div class="col-md-6">
+      <div class="card shadow-sm border-0">
+        <div class="card-body text-center">
+          <h5 class="card-title text-info">Live Devices Active</h5>
+          <p class="card-text display-6">3 Devices</p>
+          <small class="text-muted">All functioning optimally</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Past Usage Data Section -->
+  <div class="row mt-5">
+    <div class="col-md-6">
+      <h3 class="text-secondary">Appliance Data</h3>
+      <ul class="list-group shadow-sm">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Fridge
+          <span class="badge bg-primary rounded-pill">2.5 kWh</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Air Conditioner
+          <span class="badge bg-primary rounded-pill">1.8 kWh</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Television
+          <span class="badge bg-primary rounded-pill">0.8 kWh</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-6">
+      <h3 class="text-secondary">Usage Trends</h3>
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+          <img src="https://u.osu.edu/sp19dreesedatasystems/files/2019/02/AEV-PowerTimeGraph-1yvdy4g.png" alt="Energy Usage Graph" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Energy Monitor{% endblock %}</title>
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon" />
+    <link rel="icon" href="{% static 'favicon.png' %}" type="image/png" />
+    <link rel="apple-touch-icon" href="{% static 'apple-touch-icon.png' %}" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static "styles.css" %}"/>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        transition: 0.3s ease-in-out;
+        color: black;
+      }
+      body {
+        background-color: whitesmoke;
+      }
+      .nav {
+        background: url("{% static "navImage.jpg" %}") no-repeat center center /
+          cover;
+        padding: 5px;
+      }
+      .nav-link {
+        font-weight: bold;
+        text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.8);
+      }
+      .nav-link:hover {
+        color: green;
+        background-color: rgba(25, 25, 25, 0.1);
+        border-radius: 20px;
+        text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link active" href="/">Home</a>
+          </li>
+          {% comment %}
+          <li class="nav-item">
+            <a class="nav-link" href="/insights">Insights</a>
+          </li>
+          {% endcomment %}
+          <li class="nav-item">
+            <a class="nav-link" href="/devices">Devices</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/join">Join Us/Login</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Content Block -->
+    <main style="min-height: 70vh">
+      {% block content %}
+      <!-- This block will be replaced by child templates -->
+      {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="bg-body-tertiary text-center"
+      style="background-color:rgb(53, 53, 53); color: white"
+    >
+      <!-- Grid container -->
+      <div class="container p-4"> 
+        <!-- Section: Form -->
+        <h5 style="color: white;">Connect with Us.</h5 style="color: white;">
+        <section
+        style="display: flex; justify-content: center; gap: 1rem; width: 100%; margin-bottom: 20px;"
+      >
+        <!--Grid row-->
+        <ul
+          class="list-unstyled mb-0"
+          style="display: flex; align-items: center; gap: 1rem"
+        >
+          <li>
+            <a class="text-body" href="#!">
+              <img class='hov' height='38px' src="{% static "github-svgrepo-com.svg" %}"
+              alt="">
+            </a>
+          </li>
+
+          <li>
+            <a class="text-body" href="#!">
+              <img class='hov' height='45px' src="{% static "linkedin-svgrepo-com.svg" %}"
+              alt="">
+            </a>
+          </li>
+
+          <li>
+            <a class="text-body" href="#!">
+              <img class='hov' height='36px' src="{% static "discord-svgrepo-com.svg" %}"
+              alt="">
+            </a>
+          </li>
+
+          <li>
+            <a class="text-body" href="#!">
+              <img class='hov' height='40px' src="{% static "instagram-svgrepo-com.svg" %}" alt="">
+            </a>
+          </li>
+        </ul>
+
+        <!--Grid row-->
+      </section>
+        <section class="">
+          <form action="">
+            <!--Grid row-->
+            <div class="row d-flex justify-content-center">
+              <!--Grid column-->
+              <div class="col-md-5 col-12">
+                <!-- Email input -->
+                <div data-mdb-input-init class="form-outline mb-4 ml-10">
+                  <input
+                    type="email"
+                    id="form5Example24"
+                    class="form-control"
+                    placeholder="Type your email here"
+                    style='width: 350px;'
+                  />
+                  <label class="form-label col-w" for="form5Example24"
+                    >We will contact you shortly.</label
+                  >
+                </div>
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-auto">
+                <!-- Submit button -->
+                <button
+                  data-mdb-ripple-init
+                  type="submit"
+                  class="btn btn-outline mb-4 hov" style='background-color: #007BFF; color: white;'
+                >
+                  Submit
+                </button>
+              </div>
+              <!--Grid column-->
+            </div>
+            <!--Grid row-->
+          </form>
+        </section>
+        <!-- Section: Form -->
+
+        <!-- Section: Text -->
+        <section class="mb-4">
+          <p class="col-w">
+            Join the Energy Monitering community through these platforms.
+          </p>
+        </section>
+        <!-- Section: Text -->
+
+        <!-- Section: Links -->
+        
+        <!-- Section: Links -->
+      </div>
+      <!-- Grid container -->
+
+      <!-- Copyright -->
+      <div
+        class="text-center p-3 col-w"
+        style="background-color: rgba(0, 0, 0, 0.2)"
+      >
+        © 2024 Copyright:
+        <a class="text-reset fw-bold col-w" href="#">Team HexTech</a> @
+        <a class="text-reset fw-bold col-w" href="https://hackelite.in">
+          HackElite'24 SJCE</a
+        >
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+  </body>
+</html>
