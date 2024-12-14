@@ -1,8 +1,119 @@
-{% extends "myApp/base.html" %}
-
+{% extends 'myApp/base.html' %}
 {% block title %}Insights{% endblock %}
-
 {% block content %}
-<h2>I am Ironman</h2>
-{% endblock %}
+<div class="container">
+  <h1 class="text-center">Energy Consumption Insights</h1>
 
+  <!-- Fridge Graph -->
+  <div class="row">
+    <div class="col-md-4">
+      <h3>Fridge Energy Consumption</h3>
+      <canvas id="fridgeChart" width="400" height="200"></canvas>
+    </div>
+
+    <!-- AC Graph -->
+    <div class="col-md-4">
+      <h3>AC Energy Consumption</h3>
+      <canvas id="acChart" width="400" height="200"></canvas>
+    </div>
+
+    <!-- TV Graph -->
+    <div class="col-md-4">
+      <h3>TV Energy Consumption</h3>
+      <canvas id="tvChart" width="400" height="200"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- Inline JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const fridgeCtx = document.getElementById('fridgeChart').getContext('2d');
+  const acCtx = document.getElementById('acChart').getContext('2d');
+  const tvCtx = document.getElementById('tvChart').getContext('2d');
+
+  const fridgeChart = new Chart(fridgeCtx, {
+      type: 'line',
+      data: {
+          labels: [],
+          datasets: [{
+              label: 'Fridge Energy Consumption (kWh)',
+              data: [],
+              borderColor: '#007bff',
+              backgroundColor: 'rgba(0, 123, 255, 0.2)',
+              borderWidth: 1,
+              fill: true
+          }]
+      },
+      options: { scales: { x: { title: { display: true, text: 'Time' } }, y: { title: { display: true, text: 'Energy (kWh)' } } } }
+  });
+
+  const acChart = new Chart(acCtx, {
+      type: 'line',
+      data: {
+          labels: [],
+          datasets: [{
+              label: 'AC Energy Consumption (kWh)',
+              data: [],
+              borderColor: '#28a745',
+              backgroundColor: 'rgba(40, 167, 69, 0.2)',
+              borderWidth: 1,
+              fill: true
+          }]
+      },
+      options: { scales: { x: { title: { display: true, text: 'Time' } }, y: { title: { display: true, text: 'Energy (kWh)' } } } }
+  });
+
+  const tvChart = new Chart(tvCtx, {
+      type: 'line',
+      data: {
+          labels: [],
+          datasets: [{
+              label: 'TV Energy Consumption (kWh)',
+              data: [],
+              borderColor: '#ffc107',
+              backgroundColor: 'rgba(255, 193, 7, 0.2)',
+              borderWidth: 1,
+              fill: true
+          }]
+      },
+      options: { scales: { x: { title: { display: true, text: 'Time' } }, y: { title: { display: true, text: 'Energy (kWh)' } } } }
+  });
+
+  setInterval(() => {
+      fetch('/live_data/')
+          .then(response => response.json())
+          .then(data => {
+              const currentTime = new Date().toLocaleTimeString();
+
+              // Update Fridge Chart
+              fridgeChart.data.labels.push(currentTime);
+              fridgeChart.data.datasets[0].data.push(data.Fridge);
+              if (fridgeChart.data.labels.length > 10) {
+                  fridgeChart.data.labels.shift();
+                  fridgeChart.data.datasets[0].data.shift();
+              }
+              fridgeChart.update();
+
+              // Update AC Chart
+              acChart.data.labels.push(currentTime);
+              acChart.data.datasets[0].data.push(data.AC);
+              if (acChart.data.labels.length > 10) {
+                  acChart.data.labels.shift();
+                  acChart.data.datasets[0].data.shift();
+              }
+              acChart.update();
+
+              // Update TV Chart
+              tvChart.data.labels.push(currentTime);
+              tvChart.data.datasets[0].data.push(data.TV);
+              if (tvChart.data.labels.length > 10) {
+                  tvChart.data.labels.shift();
+                  tvChart.data.datasets[0].data.shift();
+              }
+              tvChart.update();
+          });
+  }, 5000);
+</script>
+{% endblock %}

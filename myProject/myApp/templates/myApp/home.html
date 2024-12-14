@@ -1,5 +1,6 @@
 {% extends 'myApp/base.html' %}
 {% block title %}Home{% endblock %}
+
 {% block content %}
 <div class="container" style='padding-bottom: 40px;'>
   <!-- Quick Insights Section -->
@@ -15,9 +16,9 @@
     <div class="col-md-6">
       <div class="card shadow-sm border-0">
         <div class="card-body text-center">
-          <h5 class="card-title text-success">Total Energy Usage</h5>
-          <p class="card-text display-6">5 kWh Today</p>
-          <small class="text-muted">Updated 5 mins ago</small>
+          <h5 class="card-title text-success">Past Energy Usage</h5>
+          <p class="card-text display-6">28 kWh Yesterday</p>
+          <small class="text-muted">Updated 1 day ago</small>
         </div>
       </div>
     </div>
@@ -58,25 +59,88 @@
   </div>
 </div>
 <div class="container">
-  <h1 class="text-center">Electricity Consumption Graphs</h1>
-  
+  <h1 class="text-center" style='margin-bottom: 40px;'>Electricity Consumption Graphs</h1>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Fridge</h5>
+          <p class="card-text" id="fridge-usage">Loading...</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">AC</h5>
+          <p class="card-text" id="ac-usage">Loading...</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">TV</h5>
+          <p class="card-text" id="tv-usage">Loading...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4" style='margin: 40px;'>
+    <div class="col-md-12">
+      <h3>Energy-Saving Tips</h3>
+      <ul id="energy-tips" class="list-group">
+        <li class="list-group-item">Loading tips...</li>
+      </ul>
+    </div>
+  </div>  
+
+
+
   <!-- Graph 1 -->
-  <div>
+  <div style='margin: 40px;'>
     <h2>Consumption at Specific Time</h2>
     {{ graph_html_1|safe }}
   </div>
   
   <!-- Graph 2 -->
-  <div>
+  <div style='margin: 40px;'>
     <h2>Consumption Over 5 Hours</h2>
     {{ graph_html_2|safe }}
   </div>
   
   <!-- Graph 3 -->
-  <div>
+  <div style='margin: 40px;'>
     <h2>24-Hour Total Appliance Consumption</h2>
     {{ graph_html_3|safe }}
   </div>
 </div>
+
+<canvas id="usageChart" width="400" height="200"></canvas>
+<script>
+  const ctx = document.getElementById('usageChart').getContext('2d');
+  const usageChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: ['Fridge', 'AC', 'TV'],
+          datasets: [{
+              label: 'Energy Consumption (kWh)',
+              data: [2.5, 3.2, 1.4], // Mock data
+              backgroundColor: ['#007bff', '#28a745', '#ffc107']
+          }]
+      }
+  });
+
+  // Update the chart dynamically
+  setInterval(() => {
+      fetch('/live_data/')
+          .then(response => response.json())
+          .then(data => {
+              usageChart.data.datasets[0].data = [data.Fridge, data.AC, data.TV];
+              usageChart.update();
+          });
+  }, 5000);
+</script>
+
 
 {% endblock %}
