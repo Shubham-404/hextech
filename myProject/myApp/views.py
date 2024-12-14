@@ -13,7 +13,7 @@ last_data = {
     "Fridge": 2.5,
     "AC": 3.0,
     "TV": 1.0,
-}j
+}
 
 def live_data(request):
     global last_data
